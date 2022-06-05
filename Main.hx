@@ -1,6 +1,7 @@
 import hxd.Key in K;
 import h3d.scene.World;
 import h3d.scene.*;
+import mesh.BasicMesh;
 
 class Main extends hxd.App {
 
@@ -8,34 +9,13 @@ class Main extends hxd.App {
     var shadow :h3d.pass.DefaultShadowMap;
     var tf : h2d.Text;
     var c : Float = 0.0;
-    var prim : h3d.prim.Cube;
-    var obj : h3d.scene.Mesh;
+    var mesh : BasicMesh;
 
     override function init() {
         //world = new World(16,100);
 
-        this.prim = new h3d.prim.Cube();
-        prim.translate( -0.5, -0.5, -0.5);
-        var tex = hxd.Res.hxlogo.toTexture();
-        var mat = h3d.mat.Material.create(tex);
-        obj = new h3d.scene.Mesh(prim, mat, s3d);
+        this.mesh = new BasicMesh(s3d);
 
-        // unindex the faces to create hard edges normals
-        prim.unindex();
-
-        // add face normals
-        prim.addNormals();
-
-        // add texture coordinates
-        prim.addUVs();
-
-        //for( i in 0...1000 )
-            ////world.add(Std.random(2) == 0 ? t : r, Math.random() * 128, Math.random() * 128, 0, 1.2 + hxd.Math.srand(0.4), hxd.Math.srand(Math.PI));
-            ////world.add(obj, Math.random() * 128, Math.random() * 128, 0, 1.2 + hxd.Math.srand(0.4), hxd.Math.srand(Math.PI));
-
-        //world.done();
-
-        //
         new h3d.scene.fwd.DirLight(new h3d.Vector( 0.3, -0.4, -0.9), s3d);
         cast(s3d.lightSystem,h3d.scene.fwd.LightSystem).ambientLight.setColor(0x909090);
 
@@ -70,8 +50,8 @@ class Main extends hxd.App {
     override function update(dt:Float) {
         tf.text = ""+engine.drawCalls;
         c += 0.1;
-        obj.y = Math.sin(c);
-        obj.rotate(Math.sin(c) / 10.0, Math.cos(c) / 10.0, Math.sin(c) / 10.0);
+        mesh.mesh.y = Math.sin(c);
+        mesh.mesh.rotate(Math.sin(c) / 10.0, Math.cos(c) / 10.0, Math.sin(c) / 10.0);
         //prim.translate( -0.5, -Math.sin(c) * 100.0, -0.5);
     }
 
