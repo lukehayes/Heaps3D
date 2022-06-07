@@ -57,6 +57,7 @@ class Main extends hxd.App {
 
     static function main() {
         hxd.Res.initEmbed();
+        hxd.res.Image.DEFAULT_FILTER = Nearest;
         new Main();
     }
 
